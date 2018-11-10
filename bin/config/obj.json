@@ -1,0 +1,30 @@
+{
+	"model_1":{
+		"id":2,
+		"url":"res/battle/test1.lh",
+		"allRes":[
+			"res/battle/Assets/Toon_RTS_demo/models/ToonRTS_demo_Knight-ToonRTS_demo_Knight-ToonRTS_demo_KnightAvatar.lav",
+			"res/battle/Assets/Toon_RTS_demo/animations/idle-idle.lani",
+			"res/battle/Assets/Toon_RTS_demo/animations/walk-walk.lani",
+			"res/battle/Assets/Toon_RTS_demo/animations/attack-attack.lani",
+			"res/battle/Assets/Toon_RTS_demo/animations/run-run.lani",
+			"res/battle/Assets/Toon_RTS_demo/models/Materials/DemoTexture.lmat",
+			"res/battle/Assets/Toon_RTS_demo/models/Materials/DemoTexture.jpg",
+			"res/battle/Assets/Toon_RTS_demo/models/ToonRTS_demo_Knight-WK_HeavyIntantry.lm"
+		]
+	},
+	"model_2":{
+		"id":2,
+		"url":"res/battle/test1.lh",
+		"allRes":[
+			"res/battle/Assets/Toon_RTS_demo/models/ToonRTS_demo_Knight-ToonRTS_demo_Knight-ToonRTS_demo_KnightAvatar.lav",
+			"res/battle/Assets/Toon_RTS_demo/animations/idle-idle.lani",
+			"res/battle/Assets/Toon_RTS_demo/animations/walk-walk.lani",
+			"res/battle/Assets/Toon_RTS_demo/animations/attack-attack.lani",
+			"res/battle/Assets/Toon_RTS_demo/animations/run-run.lani",
+			"res/battle/Assets/Toon_RTS_demo/models/Materials/DemoTexture.lmat",
+			"res/battle/Assets/Toon_RTS_demo/models/Materials/DemoTexture.jpg",
+			"res/battle/Assets/Toon_RTS_demo/models/ToonRTS_demo_Knight-WK_HeavyIntantry.lm"
+		]
+	}
+}

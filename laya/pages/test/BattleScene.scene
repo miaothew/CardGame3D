@@ -1,0 +1,24 @@
+{
+    "x":0,
+    "type":"Scene",
+    "selectedBox":1,
+    "props":{"width":1136,"sceneColor":"#000000","runtime":"script/BattleScene.ts","height":640},
+    "nodeParent":-1,
+    "label":"Scene",
+    "isOpen":true,
+    "isDirectory":false,
+    "isAniNode":true,
+    "hasChild":false,
+    "compId":1,
+    "child":[
+        ],
+    "animations":[
+        {
+            "nodes":[
+                ],
+            "name":"ani1",
+            "id":1,
+            "frameRate":24,
+            "action":0
+        }]
+}

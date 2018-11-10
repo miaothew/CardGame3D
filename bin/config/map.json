@@ -1,0 +1,22 @@
+{
+	"map_1":{
+		"id":1,
+		"url":"res/battle/test1.ls",
+		"allRes":[
+			"res/battle/terrain/terrain_Terrain.lmat",
+			"res/battle/terrain/splatAlphaTexture.png",
+			"res/battle/Assets/TinyTerrain/Standard Assets/Terrain Textures/Grass&Rock.jpg",
+			"res/battle/terrain/terrain_Terrain.lm"
+		]	
+	},
+	"map_2":{
+		"id":2,
+		"url":"res/battle/test1.ls",
+		"allRes":[
+			"res/battle/terrain/terrain_Terrain.lmat",
+			"res/battle/terrain/splatAlphaTexture.png",
+			"res/battle/Assets/TinyTerrain/Standard Assets/Terrain Textures/Grass&Rock.jpg",
+			"res/battle/terrain/terrain_Terrain.lm"
+		]	
+	}
+}

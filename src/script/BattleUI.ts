@@ -63,7 +63,8 @@ export default class BattleUI extends ui.ui.BattleUISkinUI implements IObserver 
                 this.list_my.selectedIndex = -1;
                 this.txt_discard.text = "" + GameData.instance.discardCards.length;
                 this.txt_destroy.text = "" + GameData.instance.destroyCards.length;
-            } break;
+            } 
+            break;
             case E_NOTICE.HAND_CARD_UPDATE:{
                 this.list_my.refresh();
                 this.txt_pile.text = "" + GameData.instance.cardPile.length;

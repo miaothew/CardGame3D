@@ -3,13 +3,14 @@ import { Entity } from "../entity/Entity";
 import { LimitedPool, ILimitedPoolItem } from "../../../utils/Utils";
 import { E_Skill_Type, GroupType, ActionType, EntityType, GameDefine } from "../GameDefine";
 import { GameData } from "../../../data/GameData";
-import { ConfigManager, SkillEffectConfig } from "../../../config/ConfigManager";
+import { ConfigManager, SkillEffectConfig, SkillConfig, SkillConditionConfig, BuffConfig } from "../../../config/ConfigManager";
 import { EffectManager } from "../effect/EffectManager";
 import { GameTime } from "../../../data/GameTime";
 import { SkillManager } from "../SkillManager";
 import { EntityManager } from "../entity/EntityManager";
-import { BuffManager } from "../BuffManager";
+import { BuffManager, BuffVO } from "../BuffManager";
 import { EntityDeadFsm } from "../fsm/EntityDeadFsm";
+import { DirectionUtil } from "../util/GameUtils";
 
 export class SkillBase{
 
@@ -23,7 +24,7 @@ export class SkillBase{
 	public targetY:number;
 	public enabled:boolean = false;
 	protected hurtList:Array<SkillHurt>;
-	protected bufferList:Array<SKillBuffAdd>;
+	protected buffList:Array<BuffVO>;
 	// protected bullet:SkillBullet;
 	public id:number;
 	protected end:boolean = false;
@@ -33,9 +34,99 @@ export class SkillBase{
 	private _needSound:boolean;
 	public isLj = false;
     private _attantion:boolean = true;
-    
-    
-    public release($skillid:number,$from:AnimalEntity,$target:Entity,x:number,y:number,direction:number,time:number,showHurt:boolean,hurtList:Array<SkillHurt>,bufferList?:Array<SKillBuffAdd>):void{
+    private _prepareSkill: SkillResult = new SkillResult();
+	
+	public calculate(entity:AnimalEntity,target:AnimalEntity,skillid:number,level:number = 1,att:number = 0):void{
+		let skillConfig:SkillConfig = ConfigManager.Instance.skill[skillid];
+		let skillCondition:SkillConditionConfig = ConfigManager.Instance.skillCondition[skillid][level];
+		let hurtlist;
+        if(skillCondition.hurt > 0){
+            let skillhurt:SkillHurt = new SkillHurt();
+            skillhurt.id = target.id;
+            // let crit:boolean = CommonLogic.randomCrit(critical,level,monCritratio);
+            // skillhurt.plus = 1;
+			let hurt:number = Math.floor(att * skillCondition.rate / 10000) + skillCondition.hurt;
+			if(target.a_trueArmor > 0){
+				if(target.a_trueArmor >= hurt){
+					BuffManager.Instance.subArmor(target,hurt);
+					target.a_delayArmor = target.a_trueArmor = target.a_trueArmor - hurt;
+					hurt = 0;
+				}else{
+					hurt -= target.a_trueArmor;
+					BuffManager.Instance.subArmor(target,target.a_trueArmor );
+					target.a_delayArmor = target.a_trueArmor = 0;
+				}
+			}
+			skillhurt.effectValue = skillhurt.hurt = -hurt;
+            let curhp:number =  target.a_truehp =  target.a_truehp + skillhurt.hurt;
+            if(curhp<=0)//死亡处理
+            {
+                target.a_truehp = 0;
+                target.a_isDead = true;
+                target.a_killer = entity.uid;
+                entity._entityTargetId = null;
+            }
+            if(!this.hurtList){
+                hurtlist = [];
+            }
+            hurtlist.push(skillhurt);
+        }
+		
+		// let bufferid = Number(skillCondition.buffers);
+		// if(bufferid>0)
+		// {
+		// 	if(!buffList)
+		// 	{	
+		// 		buffList = [];
+		// 	}
+		// 	let buff = new SKillBuffAdd();
+		// 	buff.buffid = bufferid;
+		// 	buff.targetId = 
+		// 	buff.time = GameTime.Instance.totalGameTime + 30000;
+		// 	buff.id = eachEnemy.realUid;
+		// 	buffList.push(buff);
+		// }
+		this.from = entity;
+		this.prepareSkillData(
+			skillid,
+			target.id,
+			target.x,
+			target.y,
+			DirectionUtil.getForwardByGridXY(entity.x,entity.y,target.x,target.y),
+			GameTime.Instance.totalGameTime,
+			true,
+			hurtlist,
+			null,
+			0
+		);
+	}
+
+	public play():void{
+		if (this._prepareSkill.skillid) {
+			this.release(
+				this._prepareSkill.skillid, this.from, EntityManager.Instance.getEntity(this._prepareSkill.toid),
+				this._prepareSkill.x, this._prepareSkill.y, this._prepareSkill.direction, this._prepareSkill.time, this._prepareSkill.showHurt, this._prepareSkill.hurtList, this._prepareSkill.buffList
+			);
+			if(this.from)
+				this.from.busy = this._prepareSkill.busyTime;
+			this._prepareSkill.skillid = null;
+		}
+	}
+
+	protected prepareSkillData(skillid: number, toid: number, x: number, y: number, direction: number, time: number, showHurt: boolean, hurtlist: any[] = null, buffList: any[] = null, busytime: number = 1000): void {
+		this._prepareSkill.skillid = skillid;
+		this._prepareSkill.toid = toid;
+		this._prepareSkill.x = x;
+		this._prepareSkill.y = y;
+		this._prepareSkill.direction = direction;
+		this._prepareSkill.hurtList = hurtlist;
+		this._prepareSkill.buffList = buffList;
+		this._prepareSkill.time = time;
+		this._prepareSkill.showHurt = showHurt;
+		this._prepareSkill.busyTime = busytime;
+	}
+
+    protected release($skillid:number,$from:AnimalEntity,$target:Entity,x:number,y:number,direction:number,time:number,showHurt:boolean,hurtList:Array<SkillHurt>,buffList?:Array<BuffVO>):void{
 		let thisObj = this;
 		thisObj.from = $from;
 		thisObj.target = $target;
@@ -53,13 +144,10 @@ export class SkillBase{
 		thisObj.enabled = true;
 		thisObj._showHurt = showHurt;
 		thisObj.hurtList = hurtList;
-		thisObj.bufferList = bufferList;
+		thisObj.buffList = buffList;
 		thisObj.skillid = $skillid;
 		thisObj.config = ConfigManager.Instance.skill[$skillid];
-		if(thisObj.config.cls == E_Skill_Type.LIAN_JI)
-		{
-			thisObj.isLj = true;
-		}
+		
 		thisObj.end = false;
 		thisObj.releaseTime = time;
 		//0攻击动作 1施法动作 2无动作
@@ -73,8 +161,8 @@ export class SkillBase{
 
 		
 		thisObj.initEffects();
-		if(thisObj.bufferList){//为了把毒的伤害分隔代码放到伤害判断前，不知道会不会出先大问题 ---又改回来了
-			thisObj.addBufferList(thisObj.bufferList);
+		if(thisObj.buffList){//为了把毒的伤害分隔代码放到伤害判断前，不知道会不会出先大问题 ---又改回来了
+			thisObj.addBufferList(thisObj.buffList);
 		}
     }
     
@@ -148,7 +236,6 @@ export class SkillBase{
 	public update(gameTime:GameTime):void{
 		let thisObj = this;
 		if(thisObj.end){
-            
 			SkillManager.Instance.readyToDie(this);
 			thisObj.enabled = false;
 		}else{
@@ -159,16 +246,12 @@ export class SkillBase{
 		}
 	}
 
-	protected addBufferList(bufferList:Array<SKillBuffAdd>):void{
+	protected addBufferList(buffList:Array<BuffVO>):void{
 		let allentity:{[key:string]:Entity} = EntityManager.Instance.getAllEntity();
-		for(let eachBuff of bufferList)
+		for(let eachBuff of buffList)
 		{
-			let ae:AnimalEntity = allentity[eachBuff.targetId.toString()] as AnimalEntity;
-			// console.log("arpgbuff");
-			
-			
-				BuffManager.Instance.addBuff(ae,eachBuff);
-			
+			let ae:AnimalEntity = allentity[eachBuff.entityId] as AnimalEntity;
+			BuffManager.Instance.addBuff(ae,eachBuff);
 		}
 	}
 
@@ -275,14 +358,7 @@ export class SkillBase{
 		SkillManager.Instance.returnSkill(this);
 	}
 }
-export class NormalHurtSkill extends SkillBase{
-	public constructor() {
-		super();
-		this.type = E_Skill_Type.NORMAL;
-	}
 
-	
-}
 
 export class SkillResult {
 	public skillid:number;
@@ -292,7 +368,7 @@ export class SkillResult {
 	public time:number;
 	public direction:number;
 	public hurtList:Array<SkillHurt>;
-	public bufferList:Array<SKillBuffAdd>;
+	public buffList:Array<BuffVO>;
 	public showHurt:boolean;//是否显示飘雪
 	public busyTime:number;
 }
@@ -305,16 +381,16 @@ export class SkillHurt implements ILimitedPoolItem{
 	// public curhp:number;//全造假的要你何用
 	// public critical:boolean;
 	public plus:number;
-	public inner:number;
+	public armor:number;
 	private static pool:LimitedPool<SkillHurt> = new LimitedPool<SkillHurt>(SkillHurt,100);
 
-	public static create(id?:number,hurt?:number,effectValue?:number,plus?:number,inner:number = 0):SkillHurt{
+	public static create(id?:number,hurt?:number,effectValue?:number,plus?:number,armor:number = 0):SkillHurt{
 		let skillHurt = this.pool.pop();
 		skillHurt.id = id;
 		skillHurt.hurt = hurt;
 		skillHurt.effectValue = effectValue;
 		skillHurt.plus = plus;
-		skillHurt.inner = inner;
+		skillHurt.armor = armor;
 		return skillHurt;
 	}
 
@@ -332,11 +408,4 @@ export class SkillHurt implements ILimitedPoolItem{
 
 	}
 
-}
-export class SKillBuffAdd {
-	public buffid:number;
-	public targetId:number;
-	public buffType:number;
-	public time:number;
-	public lid:number;
 }

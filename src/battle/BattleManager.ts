@@ -49,6 +49,12 @@ export class BattleManager {
             Laya.stage.on(Laya.UIEvent.RESIZE, this, this.resizeHandler);
             this._init = true;
         }
+        GameData.instance.turnId = 0;
+        SceneManager.Instance.enter();
+    }
+
+    public nextLevel():void{
+        GameData.instance.turnId = 0;
         SceneManager.Instance.enter();
     }
 

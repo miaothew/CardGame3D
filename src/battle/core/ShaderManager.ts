@@ -1,3 +1,5 @@
+import { CustomShader } from "./shader/CustomShader";
+
 /*
 * name;
 */
@@ -13,7 +15,7 @@ export class ShaderManager {
     }
 
     public initShaders(): void {
-        
+        CustomShader.initShader();
     }
    
 }

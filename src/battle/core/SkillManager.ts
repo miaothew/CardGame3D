@@ -1,9 +1,11 @@
 import { IUpdateable, IDProvider } from "./util/GameUtils";
 import { GameTime } from "../../data/GameTime";
-import { SkillBase, NormalHurtSkill } from "./skill/SkillBase";
+import { SkillBase } from "./skill/SkillBase";
 import { Pool } from "../../utils/Pool";
 import { E_Skill_Type } from "./GameDefine";
 import { SkillConfig, ConfigManager } from "../../config/ConfigManager";
+import { NormalHurtSkill } from "./skill/NormalHurtSkill";
+import { MagicSkill } from "./skill/MagicSkill";
 
 export class SkillManager implements IUpdateable{
 	
@@ -29,6 +31,7 @@ export class SkillManager implements IUpdateable{
 		thisObj._readyToDispose = new Array<SkillBase>();
 		thisObj.skillPools = {};
 		thisObj.skillPools[E_Skill_Type.NORMAL] = new Pool<NormalHurtSkill>(NormalHurtSkill);
+		thisObj.skillPools[E_Skill_Type.MAGIC] = new Pool<NormalHurtSkill>(MagicSkill);
 	}
 	
 
@@ -68,6 +71,7 @@ export class SkillManager implements IUpdateable{
 		if(pool){
 			let skill:SkillBase = pool.pop();
 			skill.id = IDProvider.getSkillInsID();
+			skill.enabled = false;
 			this._skills[skill.id] = skill;
 			this.empty = false;
 			return skill;

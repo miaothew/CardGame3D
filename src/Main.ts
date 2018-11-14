@@ -1,7 +1,6 @@
 import GameConfig from "./GameConfig";
 import { GameStateManager } from "./manager/GameStateManager";
 import { GameStateType } from "./manager/GameStateManager";
-import { CustomShader } from "./battle/core/shader/CustomShader";
 class Main {
 	constructor() {
 		//根据IDE设置初始化引擎		
@@ -37,7 +36,7 @@ class Main {
 	}
 	startGame():void{
 		//加载IDE指定的场景
-		CustomShader.initShader();
+		
 		GameStateManager.Instance = new GameStateManager();
 		GameStateManager.Instance.changeGameState(GameStateType.GameLoading);
 	}

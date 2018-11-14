@@ -55,7 +55,8 @@ export module ui.ui {
         }
     }
     export class GameOverDialogSkinUI extends Dialog {
-        public static  uiView:any ={"type":"Dialog","props":{"width":500,"height":300},"compId":1,"child":[{"type":"Image","props":{"y":0,"x":10,"width":480,"skin":"common/tuozhanjiemian2.png","sizeGrid":"60,30,40,30","height":301},"compId":8},{"type":"Label","props":{"y":130,"x":140,"text":"gg了，从头再来吧！菜鸡！","styleSkin":"comp/label.png","fontSize":20,"color":"#ffffff"},"compId":10}],"loadList":["common/tuozhanjiemian2.png","comp/label.png"],"loadList3D":[],"components":[]};
+		public btn_go:Laya.Image;
+        public static  uiView:any ={"type":"Dialog","props":{"width":500,"height":300},"compId":1,"child":[{"type":"Image","props":{"y":0,"x":10,"width":480,"skin":"common/tuozhanjiemian2.png","sizeGrid":"60,30,40,30","height":301},"compId":8},{"type":"Label","props":{"y":130,"x":140,"text":"gg了，从头再来吧！菜鸡！","styleSkin":"comp/label.png","fontSize":20,"color":"#ffffff"},"compId":10},{"type":"Image","props":{"y":211,"x":196,"var":"btn_go","skin":"common/commonbutton11.png"},"compId":11},{"type":"Label","props":{"y":223,"x":230,"text":"取消","styleSkin":"comp/label.png","mouseThrough":true,"mouseEnabled":false,"fontSize":20,"color":"#ffffff"},"compId":12}],"loadList":["common/tuozhanjiemian2.png","comp/label.png","common/commonbutton11.png"],"loadList3D":[],"components":[]};
         constructor(){ super()}
         createChildren():void {
             super.createChildren();
@@ -85,7 +86,8 @@ export module ui.ui {
     export class WinDialogSkinUI extends Dialog {
 		public list_card:Laya.List;
 		public btn_ok:Laya.Image;
-        public static  uiView:any ={"type":"Dialog","props":{"width":500,"height":300},"compId":1,"child":[{"type":"Image","props":{"y":10,"x":10,"width":480,"skin":"common/tuozhanjiemian2.png","sizeGrid":"60,30,40,30","height":363},"compId":2},{"type":"Label","props":{"y":31,"x":234.9951171875,"text":"win","styleSkin":"comp/label.png","fontSize":20,"color":"#ffffff"},"compId":3},{"type":"List","props":{"y":121,"x":43.5,"width":413,"var":"list_card","repeatY":1,"height":153},"compId":4},{"type":"Image","props":{"y":288,"x":196,"var":"btn_ok","skin":"common/commonbutton11.png"},"compId":5},{"type":"Label","props":{"y":300,"x":230,"text":"确定","styleSkin":"comp/label.png","mouseEnabled":false,"fontSize":20,"color":"#ffffff"},"compId":6}],"loadList":["common/tuozhanjiemian2.png","comp/label.png","common/commonbutton11.png"],"loadList3D":[],"components":[]};
+		public btn_cancel:Laya.Image;
+        public static  uiView:any ={"type":"Dialog","props":{"width":500,"height":300},"compId":1,"child":[{"type":"Image","props":{"y":10,"x":10,"width":480,"skin":"common/tuozhanjiemian2.png","sizeGrid":"60,30,40,30","height":363},"compId":2},{"type":"Label","props":{"y":31,"x":234.9951171875,"text":"win","styleSkin":"comp/label.png","fontSize":20,"color":"#ffffff"},"compId":3},{"type":"List","props":{"y":121,"x":43.5,"width":413,"var":"list_card","repeatY":1,"height":153},"compId":4},{"type":"Image","props":{"y":288,"x":126,"var":"btn_ok","skin":"common/commonbutton11.png"},"compId":5},{"type":"Label","props":{"y":300,"x":160,"text":"确定","styleSkin":"comp/label.png","mouseThrough":true,"mouseEnabled":false,"fontSize":20,"color":"#ffffff"},"compId":6},{"type":"Image","props":{"y":288,"x":276,"var":"btn_cancel","skin":"common/commonbutton11.png"},"compId":7},{"type":"Label","props":{"y":300,"x":310,"text":"取消","styleSkin":"comp/label.png","mouseThrough":true,"mouseEnabled":false,"fontSize":20,"color":"#ffffff"},"compId":8}],"loadList":["common/tuozhanjiemian2.png","comp/label.png","common/commonbutton11.png"],"loadList3D":[],"components":[]};
         constructor(){ super()}
         createChildren():void {
             super.createChildren();

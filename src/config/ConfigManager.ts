@@ -1,3 +1,5 @@
+import { utils } from "../utils/Utils";
+
 export class ConfigManager{
 
 	public static Instance:ConfigManager = new ConfigManager();
@@ -82,11 +84,11 @@ export class ConfigManager{
                     config[key] = Number(line[j]);
             }
 			con[config["monsterId"]] = config;
-			config.skillId = this.splitNumber(config.skillId,"#");
-			config.skillLevel = this.splitNumber(config.skillLevel,"#");
-			config.hpPercentMax = this.splitNumber(config.hpPercentMax,"#");
-			config.hpPercentMin = this.splitNumber(config.hpPercentMin,"#");
-			config.priority = this.splitNumber(config.priority,"#");
+			config.skillId = utils.splitNumber(config.skillId,"#");
+			config.skillLevel = utils.splitNumber(config.skillLevel,"#");
+			config.hpPercentMax = utils.splitNumber(config.hpPercentMax,"#");
+			config.hpPercentMin = utils.splitNumber(config.hpPercentMin,"#");
+			config.priority = utils.splitNumber(config.priority,"#");
         }
 	}
 
@@ -171,14 +173,6 @@ export class ConfigManager{
         }
 	}
 
-	private splitNumber(value:string,separator:string,limit?:number):number[]{
-		let arr = value.split(separator, limit);
-		let arr2 = [];
-		for (let i = 0, len = arr.length; i < len; i++) {
-			arr2[i] = parseFloat(arr[i]);
-		}
-		return arr2;
-	}
 	
 	protected addSkillEffect(content: string, configs, con):void{
 		let contents: string[][] = [];
@@ -314,6 +308,7 @@ export class SkillConditionConfig{
 	param:string;
 	rate:number;
 	hurt:number;
+	armor:number;
 	buffers:string;
 }
 
@@ -322,7 +317,7 @@ export class SkillConditionConfig{
 export class BuffConfig {
 	id: number;
 	name: string;
-	bufferType: number;
+	buffType: number;
 	trigger: number;
 	probability: number;
 	parameter: string;

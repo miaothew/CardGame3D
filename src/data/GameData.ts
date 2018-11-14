@@ -29,6 +29,7 @@ export class GameData implements ISubject {
     //跳转游戏页面时记录游戏成绩
     public static instance = new GameData();
 
+    public turnId:number = 0;
     public result: number = 1;
     public myTurn:boolean = true;
     public waitFor:number;
@@ -201,6 +202,13 @@ export class GameData implements ISubject {
             this.clearCardArray(this.destroyCards);
         }
         this.sendNotif(E_NOTICE.HAND_CARD_UPDATE);
+    }
+
+    public resetGame():void{
+        this.hp = 100;
+        this.mp = 3;
+        this.gold = 0;
+        this.playerCardPool = [10001,10002,10001,10002,10001,10002,10001,10002,10001,10001];
     }
 }
 

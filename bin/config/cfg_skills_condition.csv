@@ -1,7 +1,7 @@
 skillid,技能等级,参数(数值或万分比),攻击倍率（万分比）,伤害,技能BUFF状态
-uint,ushort,uint,uint,uint,string
+uint,ushort,uint,uint,uint,str
 skillid,level,param,rate,hurt,buffers
 10101,1,,10000,5,
 10102,1,,10000,5,
-10301,1,,10000,5,
+10301,1,,10000,0,2#1
 10401,1,,10000,8,

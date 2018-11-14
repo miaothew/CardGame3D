@@ -20,6 +20,12 @@ export class IDProvider {
         this.__skillId++;
         return this.__skillId;
     }
+
+    private static __buffId: number = 0;
+    public static getBuffInsID(): number {
+        this.__buffId++;
+        return this.__buffId;
+    }
     private static __cardId: number = 0;
     public static getCardInsID(): number {
         this.__cardId++;

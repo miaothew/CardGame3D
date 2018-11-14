@@ -31,6 +31,8 @@ import { SkillManager } from "../SkillManager";
 		public a_sex: number;
 		public a_career: number;
 		public a_isDead: boolean = false;
+		public a_trueArmor:number = 0;
+		public a_delayArmor:number = 0;
 
 		public a_wingModel: number;
 		public a_titleId: number;
@@ -54,7 +56,7 @@ import { SkillManager } from "../SkillManager";
 		public model3D:Model3D;
 		public action: ActionType;
 		public dir: number = 0;
-		private _prepareSkill: SkillResult = new SkillResult();
+		private _prepareSkill:SkillBase;
 		public hideHp: boolean;
 		public astarStandOn: boolean;
 		/**占了个坑 */
@@ -453,28 +455,14 @@ import { SkillManager } from "../SkillManager";
 		}
 
 
-		public prepareSkillData(skillid: number, toid: number, x: number, y: number, direction: number, time: number, showHurt: boolean, hurtlist: any[] = null, bufferlist: any[] = null, busytime: number = 1000): void {
-			this._prepareSkill.skillid = skillid;
-			this._prepareSkill.toid = toid;
-			this._prepareSkill.x = x;
-			this._prepareSkill.y = y;
-			this._prepareSkill.direction = direction;
-			this._prepareSkill.hurtList = hurtlist;
-			this._prepareSkill.bufferList = bufferlist;
-			this._prepareSkill.time = time;
-			this._prepareSkill.showHurt = showHurt;
-			this._prepareSkill.busyTime = busytime;
+		public prepareSkillData(skill:SkillBase):void{
+			this._prepareSkill = skill;
 		}
 
 		public onReleaseSkill(): void {
-			if (this._prepareSkill.skillid) {
-				let skillObject: SkillBase = SkillManager.Instance.createSkill(this._prepareSkill.skillid);
-				skillObject.release(
-					this._prepareSkill.skillid, this, EntityManager.Instance.getEntity(this._prepareSkill.toid.toString()),
-					this._prepareSkill.x, this._prepareSkill.y, this._prepareSkill.direction, this._prepareSkill.time, this._prepareSkill.showHurt, this._prepareSkill.hurtList, this._prepareSkill.bufferList
-				);
-				this.busy = this._prepareSkill.busyTime;
-				this._prepareSkill.skillid = null;
+			if (this._prepareSkill) {
+				this._prepareSkill.play();
+				this._prepareSkill = null;
 			} else {
 				this.setAction(ActionType.Idle);
 			}
@@ -595,6 +583,11 @@ import { SkillManager } from "../SkillManager";
 			// 	this._effects = undefined;
 			// }
 			this.display = undefined;
+			if(this._prepareSkill){
+				SkillManager.Instance.readyToDie(this._prepareSkill);
+				this._prepareSkill = null;
+			}
+			
 			// this._prepareSkill = undefined;
 		}
 	}

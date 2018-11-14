@@ -26,4 +26,22 @@ export module utils{
         }
         return b;
     }
+
+    export function splitNumber(value:string,separator:string,limit?:number):number[]{
+		let arr = value.split(separator, limit);
+		let arr2 = [];
+		for (let i = 0, len = arr.length; i < len; i++) {
+			arr2[i] = parseFloat(arr[i]);
+		}
+		return arr2;
+    }
+    
+    export function splitNumberTwoLevel(value:string,separator:string,separator2:string,limit?:number):number[]{
+		let arr = value.split(separator, limit);
+		let arr2 = [];
+		for (let i = 0, len = arr.length; i < len; i++) {
+			arr2[i] = splitNumber(arr[i],separator2,limit);
+		}
+		return arr2;
+	}
 }

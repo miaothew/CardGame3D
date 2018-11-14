@@ -2,7 +2,7 @@
     "x":0,
     "type":"Dialog",
     "selectedBox":1,
-    "selecteID":5,
+    "selecteID":8,
     "props":{"width":500,"sceneColor":"#000000","height":300},
     "nodeParent":-1,
     "label":"Dialog",
@@ -55,7 +55,7 @@
         {
             "x":15,
             "type":"Image",
-            "props":{"y":288,"x":196,"var":"btn_ok","skin":"common/commonbutton11.png"},
+            "props":{"y":288,"x":126,"var":"btn_ok","skin":"common/commonbutton11.png"},
             "nodeParent":1,
             "label":"btn_ok",
             "isDirectory":false,
@@ -68,13 +68,39 @@
         {
             "x":15,
             "type":"Label",
-            "props":{"y":300,"x":230,"text":"确定","styleSkin":"comp/label.png","mouseEnabled":false,"fontSize":20,"color":"#ffffff"},
+            "props":{"y":300,"x":160,"text":"确定","styleSkin":"comp/label.png","mouseThrough":true,"mouseEnabled":false,"fontSize":20,"color":"#ffffff"},
             "nodeParent":1,
             "label":"Label",
             "isDirectory":false,
             "isAniNode":true,
             "hasChild":false,
             "compId":6,
+            "child":[
+                ]
+        },
+        {
+            "x":15,
+            "type":"Image",
+            "props":{"y":288,"x":276,"var":"btn_cancel","skin":"common/commonbutton11.png"},
+            "nodeParent":1,
+            "label":"btn_cancel",
+            "isDirectory":false,
+            "isAniNode":true,
+            "hasChild":false,
+            "compId":7,
+            "child":[
+                ]
+        },
+        {
+            "x":15,
+            "type":"Label",
+            "props":{"y":300,"x":310,"text":"取消","styleSkin":"comp/label.png","mouseThrough":true,"mouseEnabled":false,"fontSize":20,"color":"#ffffff"},
+            "nodeParent":1,
+            "label":"Label",
+            "isDirectory":false,
+            "isAniNode":true,
+            "hasChild":false,
+            "compId":8,
             "child":[
                 ]
         }],

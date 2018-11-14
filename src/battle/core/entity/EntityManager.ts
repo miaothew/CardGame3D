@@ -28,7 +28,7 @@ import { Monster } from "./Monster";
 			return this._instance;
 		}
 
-		public getEntity(id:string):Entity{
+		public getEntity(id:number):Entity{
 			return this._entityDic[id];
 		}
 
@@ -65,11 +65,11 @@ import { Monster } from "./Monster";
 				this._playerDic[id.toString()] = entity as Player;
 				break;
 			case EntityType.MONSTER:
-				entity = new Player(id,type);
+				entity = new Monster(id,type);
 				// entity.createComponents();
 				// entity.checkHide();
 				// this._playerDic[id.toString()] = entity as Player;
-				this._enemyDic[id.toString()] = entity as Player;
+				this._enemyDic[id.toString()] = entity as Monster;
 				break;
 			}
 			if(entity){

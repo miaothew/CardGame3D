@@ -108,21 +108,35 @@ export const enum E_NOTICE{
 	
 }
 
-//1通用伤害技能 2抗击火环 3野蛮冲撞 4幽灵术 5施毒 6 召唤月灵
-export const enum E_Skill_Type {
-	NORMAL = 1,         //普通伤害技
-	KANG_JU = 2,         //抗拒火环
-	YE_MAN = 3,         //野蛮冲撞
-	YOU_LING = 4,
-	SHI_DU = 5,
-	ZHAO_HUAN = 6,
-	LIAN_JI = 20,
-}
-
-
 //当前对象状态
 export const enum E_Entity_TurnState {
 	WAIT,//等待
 	ACTION,//行动
 	END//行动结束
+}
+
+//1敌人2自己
+export const enum E_Skill_TargetType{
+	ENEMY = 1,
+	SELF = 2
+}
+//1通用伤害技能 2抗击火环 3野蛮冲撞 4幽灵术 5施毒 6 召唤月灵
+export const enum E_Skill_Type {
+	NORMAL = 1,         //普通伤害技
+	MAGIC = 2,         //法术
+}
+
+
+export const enum E_Buff_Tpye {
+	/**护甲 */
+	ARMOR = 1,
+}
+
+export const enum E_Buff_Trigger {
+	/**即时触发，比如获得护甲 */
+	Immediate,
+	/**回合开始触发 */
+	TurnEnd,
+	/**回合结束触发 */
+	TurnBegin
 }

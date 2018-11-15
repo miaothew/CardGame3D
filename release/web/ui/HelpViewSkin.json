@@ -1,0 +1,1 @@
+{"type":"View","props":{"width":500,"height":500},"compId":1,"child":[{"type":"Label","props":{"y":174,"x":208,"text":"帮助","styleSkin":"comp/label.png","fontSize":20,"color":"#ffffff"},"compId":2}],"loadList":["comp/label.png"],"loadList3D":[],"components":[]}

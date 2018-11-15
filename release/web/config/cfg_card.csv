@@ -1,0 +1,6 @@
+卡片id,名字,描述,类型（1打击2法术3道具）,技能使用条件,技能,耗蓝,资源
+num,str,str,num,num,str,num,str
+id,name,desc,type,term,skill,mp,source
+10001,打击,造成5点伤害,1,,10101,1,ka_1_png
+10002,格挡,格挡5点伤害,2,,10301,1,ka_2_png
+10003,重击,造成8点伤害,1,,10401,1,ka_2_png

@@ -1,0 +1,4 @@
+buffid,buff名称,触发类型,buff类型,触发概率,buff参数,场景展示文字,攻or防,buff的效果类型,是否可叠加（即时战斗用),替代规则（即时战斗用),额外参数配置（即时战斗用),持续回合(回合结束清理；0回合的话，回合结束就没了),间隔回合,bufficon,buff说明,buff特效SKILL_effect的ID
+int,str,int,int,int,str,str,int,,,,,int,int,str,str,int
+id,name,trigger,buffType,probability,parameter,show,type,bufferEffectType,overLying,replace,extraParam,duration,cd,icon,txt,buffeffect
+1,格挡,0,1,10000,5,格挡,1,1,0,0,,1,0,,格挡5点伤害,

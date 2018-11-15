@@ -230,7 +230,3 @@ export class CardIns{
     id:number;
     level:number = 1;
 }
-
-
-
-

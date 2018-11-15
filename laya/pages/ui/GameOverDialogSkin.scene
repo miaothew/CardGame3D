@@ -41,20 +41,35 @@
         {
             "x":15,
             "type":"Image",
-            "props":{"y":211,"x":196,"var":"btn_go","skin":"common/commonbutton11.png"},
+            "props":{"y":237,"x":250,"var":"btn_go","skin":"common/commonbutton11.png","pivotY":26,"pivotX":54},
             "nodeParent":1,
             "label":"btn_go",
-            "isDirectory":false,
+            "isOpen":null,
+            "isDirectory":true,
             "isAniNode":true,
-            "hasChild":false,
+            "hasChild":true,
             "compId":11,
             "child":[
-                ]
+                {
+                    "type":"Script",
+                    "switchAble":true,
+                    "source":"src/script/ImageBtn.ts",
+                    "removeAble":true,
+                    "props":{},
+                    "nodeParent":11,
+                    "label":"ImageBtn",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":14,
+                    "child":[
+                        ]
+                }]
         },
         {
             "x":15,
             "type":"Label",
-            "props":{"y":223,"x":230,"text":"取消","styleSkin":"comp/label.png","mouseThrough":true,"mouseEnabled":false,"fontSize":20,"color":"#ffffff"},
+            "props":{"y":223,"x":230,"text":"取消","styleSkin":"comp/label.png","mouseThrough":false,"mouseEnabled":false,"fontSize":20,"color":"#ffffff"},
             "nodeParent":1,
             "label":"Label",
             "isDirectory":false,

@@ -2,7 +2,7 @@
     "x":0,
     "type":"View",
     "selectedBox":1,
-    "selecteID":6,
+    "selecteID":16,
     "props":{"width":1136,"sceneColor":"#000000","runtime":"script/BattleUI.ts","height":640},
     "nodeParent":-1,
     "label":"View",

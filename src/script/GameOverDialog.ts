@@ -11,5 +11,10 @@ export class GameOverDialog extends ui.ui.GameOverDialogSkinUI{
         GameData.instance.resetGame();
         BattleManager.Instance.destroyScene();
         BattleManager.Instance.init(null);
+        this.close();
+    }
+
+    onDestroy(){
+        this.btn_go.off(Laya.Event.CLICK,this,this.clickHandler);
     }
 }

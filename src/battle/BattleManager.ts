@@ -247,6 +247,7 @@ export class BattleManager {
         }
         //敌人全倒了
         GameData.instance.win();
+        this.state.changeGameState(BattleStateType.END);
     }
 
     public destroyScene():void{

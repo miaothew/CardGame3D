@@ -70,7 +70,7 @@ export class GameData implements ISubject {
 
     public gameOver():void{
         this._gameOver = true;
-        this.sendNotif(E_NOTICE.GAME_OVER);
+        // this.sendNotif(E_NOTICE.GAME_OVER);
     }
 
     public win():void{
@@ -208,6 +208,7 @@ export class GameData implements ISubject {
         this.hp = 100;
         this.mp = 3;
         this.gold = 0;
+        this._gameOver = false;
         this.playerCardPool = [10001,10002,10001,10002,10001,10002,10001,10002,10001,10001];
     }
 }

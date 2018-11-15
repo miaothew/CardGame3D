@@ -21,6 +21,7 @@ export default class BattleWaitState implements IBattleState{
 		if(SkillManager.Instance.empty){
 			if(GameData.instance._gameOver){
 				GameData.instance.sendNotif(E_NOTICE.GAME_OVER);
+				BattleManager.Instance.state.changeGameState(BattleStateType.END);
 			}else
 				BattleManager.Instance.state.changeGameState(BattleStateType.TURN_END);
 		}

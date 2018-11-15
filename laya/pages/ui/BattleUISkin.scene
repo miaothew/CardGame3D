@@ -1,8 +1,8 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":1,
-    "selecteID":16,
+    "selectedBox":16,
+    "selecteID":12,
     "props":{"width":1136,"sceneColor":"#000000","runtime":"script/BattleUI.ts","height":640},
     "nodeParent":-1,
     "label":"View",
@@ -93,7 +93,7 @@
                 {
                     "x":30,
                     "type":"Sprite",
-                    "props":{"y":30,"x":79,"var":"btn_send","texture":"common/commonbutton13_1.png","pivotY":30,"pivotX":79},
+                    "props":{"y":30,"x":79,"visible":false,"var":"btn_send","texture":"common/commonbutton13_1.png","pivotY":30,"pivotX":79},
                     "nodeParent":16,
                     "label":"btn_send",
                     "isOpen":null,
@@ -116,12 +116,13 @@
                             "compId":20,
                             "child":[
                                 ]
-                        }]
+                        }],
+                    "$HIDDEN":false
                 },
                 {
                     "x":30,
                     "type":"Label",
-                    "props":{"y":17,"x":56,"text":"测试","styleSkin":"comp/label.png","mouseEnabled":false,"fontSize":20,"color":"#ffffff"},
+                    "props":{"y":17,"x":56,"visible":false,"text":"测试","styleSkin":"comp/label.png","mouseEnabled":false,"fontSize":20,"color":"#ffffff"},
                     "nodeParent":16,
                     "label":"Label",
                     "isDirectory":false,
@@ -129,7 +130,8 @@
                     "hasChild":false,
                     "compId":13,
                     "child":[
-                        ]
+                        ],
+                    "$HIDDEN":false
                 },
                 {
                     "x":30,

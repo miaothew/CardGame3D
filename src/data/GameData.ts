@@ -126,6 +126,7 @@ export class GameData implements ISubject {
         while(hand.length < handCardMax){
             if(pile.length == 0 && discard.length > 0){
                 utils.shuffleClone(discard,pile);
+                discard.length = 0;
             }
             if(pile.length > 0){
                 hand.push(pile.pop());

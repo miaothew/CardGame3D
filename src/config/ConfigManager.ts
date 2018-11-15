@@ -53,7 +53,7 @@ export class ConfigManager{
 		let contents: string[][] = [];
         let columns: string[];
         let types: string[];
-        var lines: string[] = content.split("\r\n");
+        var lines: string[] = content.split("\n");
         let noUseLine = 1;
         while (noUseLine > 0) {
             noUseLine--;
@@ -96,7 +96,7 @@ export class ConfigManager{
         let contents: string[][] = [];
         let columns: string[];
         let types: string[];
-        var lines: string[] = content.split("\r\n");
+        var lines: string[] = content.split("\n");
         let noUseLine = 1;
         while (noUseLine > 0) {
             noUseLine--;
@@ -134,7 +134,7 @@ export class ConfigManager{
 		let contents: string[][] = [];
         let columns: string[];
         let types: string[];
-        var lines: string[] = content.split("\r\n");
+        var lines: string[] = content.split("\n");
         let noUseLine = 1;
         while (noUseLine > 0) {
             noUseLine--;
@@ -178,7 +178,7 @@ export class ConfigManager{
 		let contents: string[][] = [];
         let columns: string[];
         let types: string[];
-        var lines: string[] = content.split("\r\n");
+        var lines: string[] = content.split("\n");
         let noUseLine = 1;
         while (noUseLine > 0) {
             noUseLine--;

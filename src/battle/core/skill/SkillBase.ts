@@ -304,9 +304,11 @@ export class SkillBase{
 				// 		btype = 3;
 				// 	}
 				// }
-				if((thisObj._attantion || ae.group == GroupType.SELF)&& ((eachhurt.plus == 3 && hurtindex <=3) || eachhurt.plus != 3))//连击只显示3个搞笑把
+				if(thisObj._attantion || ae.group == GroupType.SELF)
 				{
 					ae.showBloodEffect(eachhurt.effectValue,dir,btype,eachhurt.plus,hurtindex);
+					let trans:Laya.Transform3D = ae.display.transform;
+					EffectManager.Instance.addEffect(1,trans.position.x,trans.position.y,trans.position.z,3000);
 				}
 			}
 			ae.a_delayhp += eachhurt.hurt;//这个还是要再算一次的把，延迟不一样呀

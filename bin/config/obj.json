@@ -1,6 +1,6 @@
 {
 	"model_1":{
-		"id":2,
+		"id":1,
 		"url":"res/battle/test1.lh",
 		"allRes":[
 			"res/battle/Assets/Toon_RTS_demo/models/ToonRTS_demo_Knight-ToonRTS_demo_Knight-ToonRTS_demo_KnightAvatar.lav",
@@ -25,6 +25,16 @@
 			"res/battle/Assets/Toon_RTS_demo/models/Materials/DemoTexture.lmat",
 			"res/battle/Assets/Toon_RTS_demo/models/Materials/DemoTexture.jpg",
 			"res/battle/Assets/Toon_RTS_demo/models/ToonRTS_demo_Knight-WK_HeavyIntantry.lm"
+		]
+	},
+	"effect_1":{
+		"id":1,
+		"url":"res/battle/effecthurt.lh",
+		"allRes":[
+			"res/battle/Assets/100 Best Effect Pack/Texture&Material/Smoke Texture&Mateiral/Smoke(Alpha Blended).lmat",
+			"res/battle/Assets/100 Best Effect Pack/Texture&Material/Smoke Texture&Mateiral/Smoke6(Alpha Blended).lmat",
+			"res/battle/Assets/100 Best Effect Pack/Texture&Material/Smoke Texture&Mateiral/Smoke.png",
+			"res/battle/Assets/100 Best Effect Pack/Texture&Material/Smoke Texture&Mateiral/Smoke6.png"
 		]
 	}
 }

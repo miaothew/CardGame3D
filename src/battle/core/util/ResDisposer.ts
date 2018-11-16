@@ -6,8 +6,8 @@ export class ResDisposer{
     /**
      * addRef
      */
-    public addRefByObjId(id) {
-        let obj = ConfigManager.Instance.obj["model_" + id];
+    public addRefByObjId(id,firstName = "model_") {
+        let obj = ConfigManager.Instance.obj[firstName + id];
         if(obj){
             for (const url of obj.allRes) {
                 //根据资源路径获取资源
@@ -17,8 +17,8 @@ export class ResDisposer{
         }
     }
     
-    public removeRefByObjId(id){
-        let obj = ConfigManager.Instance.obj["model_" + id];
+    public removeRefByObjId(id,firstName = "model_"){
+        let obj = ConfigManager.Instance.obj[firstName + id];
         if(obj){
             this.removeRef(obj.url);
             for (const url of obj.allRes) {
@@ -28,8 +28,8 @@ export class ResDisposer{
         }
     }
 
-    public checkRef(id){
-        let obj = ConfigManager.Instance.obj["model_" + id];
+    public checkRef(id,firstName = "model_"){
+        let obj = ConfigManager.Instance.obj[firstName + id];
         if(obj){
             for (const url of obj.allRes) {
                 //根据资源路径获取资源
@@ -41,17 +41,23 @@ export class ResDisposer{
         }
     }
 
+
     public disposeRes(url):void{
         //根据资源路径获取资源
         var resource:Laya.Resource = Laya.loader.getRes(url)as Laya.Resource;
         //非空
         if(resource)
         {
-            resource.destroy();
-            if(resource.releaseResource)
-                resource.releaseResource(true);
-            Laya.loader.clearRes(url);
-        }else{
+            if(resource instanceof Laya.Sprite3D){
+                Laya.loader.clearRes(url);
+            }else{
+                resource.destroy();
+                if(resource.releaseResource)
+                    resource.releaseResource(true);
+                Laya.loader.clearRes(url);
+            }
+        }
+        else{
             Laya.loader.cancelLoadByUrl(url);
         }
     }
@@ -71,5 +77,7 @@ export class ResDisposer{
                 this.disposeRes(url);
             }
 		}
-	}
+    }
+    
+    
 }

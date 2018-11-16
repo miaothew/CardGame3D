@@ -150,15 +150,26 @@ export class SceneManager {
 
 	private onLoadFinish(): void {
 		
-		var scene = Laya.loader.getRes(ConfigManager.Instance.map["map_" + GameData.instance.mapid].url) as Laya.Sprite3D;
+		var scene = Laya.loader.getRes(ConfigManager.Instance.map["map_" + GameData.instance.mapid].url) as Laya.Scene3D;
 		this.scene = this.sceneCont.addChild(scene) as Laya.Scene3D;
 		// (scene.getChildAt(0) as Laya.MeshSprite3D).meshRenderer.receiveShadow = true;
 		this.initCamera();
 		// //添加方向光
 		this.initDirectionLight();
-
 		BattleManager.Instance.startGame();
 	}
+
+	// private testEff():void{
+	// 	Laya.Sprite3D.load("res/battle/effecthurt.lh",Laya.Handler.create(this,this.loadComp2));
+	// }
+
+	// private loadComp2():void{
+    //     setInterval(()=>{
+    //         let sp = Laya.loader.getRes("res/battle/effecthurt.lh") as Laya.Sprite3D;
+    //         sp = Laya.Sprite3D.instantiate(sp.getChildAt(0) as Laya.Sprite3D);
+    //         this.scene.addChild(sp);
+    //     },2000);
+    // }
 
 	public updateTime(): void {
 	}
@@ -179,11 +190,12 @@ export class SceneManager {
 		//添加照相机channel
 		var camera: Laya.Camera = (this.scene.addChild(new Laya.Camera(0, 0.3, 1000))) as Laya.Camera;
 		// camera.transform.translate(new Laya.Vector3(-50.51006, 5.763073, 24.30456));
-		camera.transform.position = new Laya.Vector3(-50.51006, 5.763073, 24.30456);
+		camera.transform.position = new Laya.Vector3(-1.684368,			5.801986,			10.0834);
 		// camera.transform.rotate(new Laya.Vector3(-30, 0, 0), true, false);
-		camera.transform.rotation = new Laya.Quaternion(-0.2575304, -0.6578727, -0.2569133, 0.6594522);
+		// camera.transform.rotation = new Laya.Quaternion(-0.2575304, -0.6578727, -0.2569133, 0.6594522);
+		camera.transform.rotation = new Laya.Quaternion(	-0.2077771,			-0.09490746,			-0.02025976,			0.9733503);
 		camera.fieldOfView = 20;
-		//this.camera.clearColor = new Laya.Vector4(0.1921569,0.3019608,0.4745098,0);
+		camera.clearColor = new Laya.Vector4(0.1921569,0.3019608,0.4745098,0);
 		// camera.clearFlag = Laya.BaseCamera.CLEARFLAG_SKY;
 		// var skyBox = new Laya.SkyBox();
 		// camera.sky = skyBox;

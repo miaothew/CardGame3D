@@ -65,8 +65,13 @@ export class EffectManager {
 
     public destoryAllEffect(): void {
         for (let key in this._effectDic) {
-            this.readyToDie(this._effectDic[key]);
+            this._effectDic[key].die();
         }
+        for (let deadEffect of this._readyToDispose) {
+            delete this._effectDic[deadEffect.id];
+            deadEffect.dispose();
+        }
+        this._readyToDispose.length = 0;
     }
 
     public updateTime(gameTime: GameTime): void {
@@ -179,13 +184,15 @@ export class NormalEffect implements IUpdateable {
     }
 
     public initDisplay(): void {
-        ResDisposer.Instance.addRefByObjId(this.eid,NormalEffect.Effect_Name);
+        // ResDisposer.Instance.addRefByObjId(this.eid,NormalEffect.Effect_Name);
         this._skinConfig = ConfigManager.Instance.obj[NormalEffect.Effect_Name + this.eid];
+        
         let sp = Laya.loader.getRes(this._skinConfig.url);
         if(sp){
-            this.loadedHandler(this.eid,sp);
+            this.loadedHandler(this.eid,this._skinConfig.url,sp);
         }else{
-            Laya.Sprite3D.load(this._skinConfig.url,Laya.Handler.create(this,this.loadedHandler,[this.eid]));
+            ResDisposer.Instance.addToLoading(this._skinConfig.url);
+            Laya.Sprite3D.load(this._skinConfig.url,Laya.Handler.create(this,this.loadedHandler,[this.eid,this._skinConfig.url]));
         }
     }
 
@@ -197,20 +204,23 @@ export class NormalEffect implements IUpdateable {
         this.setPosition(this._x, this._y, this._z);
     }
 
-    private loadedHandler(eid:number,res:Laya.Sprite3D): void {
+    private loadedHandler(eid:number,url:string,res:Laya.Sprite3D): void {
         if(eid == this.eid){
+            ResDisposer.Instance.removeLoad(url);
+            ResDisposer.Instance.addReferenceRes(url);
             this.animation = Laya.Sprite3D.instantiate(res.getChildAt(0) as Laya.Sprite3D);
             this._container.addChild(this.animation);
             this.initAnimation();
         }else{
-            ResDisposer.Instance.checkRef(eid,NormalEffect.Effect_Name);
+            ResDisposer.Instance.removeReferenceRes(url);
+            // ResDisposer.Instance.checkRef(eid,NormalEffect.Effect_Name);
         }
     }
 
     public die(): void {
         this.enabled = false;
         if (this.animation) {
-            this.animation.destroy();
+            this.animation.destroy(true);
             // this.animation.off(Laya.Event.HIERARCHY_LOADED, this, this.loadedHandler, true);
             this.animation = null;
         }
@@ -288,7 +298,10 @@ export class NormalEffect implements IUpdateable {
             return;
         }
         if(this._skinConfig){
-            ResDisposer.Instance.removeRefByObjId(this.eid,NormalEffect.Effect_Name);
+            if(!ResDisposer.Instance.removeLoad(this._skinConfig.url)){
+                ResDisposer.Instance.removeReferenceRes(this._skinConfig.url);
+            }
+            // ResDisposer.Instance.removeRefByObjId(this.eid,NormalEffect.Effect_Name);
             this._skinConfig = null;
         }
         this.id = undefined;

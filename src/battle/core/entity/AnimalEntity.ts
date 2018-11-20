@@ -136,6 +136,9 @@ import { SkillManager } from "../SkillManager";
 				// 	this._entityInfo.showBloodEffect(Math.abs(value), dir, type, plus, index);
 				// }
 			}
+			if(this.action == ActionType.Idle){
+				this.setAction(ActionType.HURT,null,true);
+			}
 		}
 
 		protected initDisplay(): void {
@@ -237,7 +240,7 @@ import { SkillManager } from "../SkillManager";
 
 		
 		private playCompleteHandler():void{
-			if(this.action == ActionType.Attack || this.action == ActionType.Attack2){
+			if(this.action == ActionType.Attack || this.action == ActionType.Attack2 || this.action == ActionType.HURT){
 				this.setAction(ActionType.Idle);
 			}
 		}
@@ -334,6 +337,12 @@ import { SkillManager } from "../SkillManager";
 					break;
 					case ActionType.Attack2:
 						this.model3D.playAni("skill2",compulsory);
+					break;
+					case ActionType.HURT:
+						this.model3D.playAni("damage",compulsory);
+					break;
+					case ActionType.Die:
+						this.model3D.playAni("die",compulsory);
 					break;
 					default:
 						this.model3D.playAni("idle",compulsory);
@@ -547,7 +556,7 @@ import { SkillManager } from "../SkillManager";
 			// if (this.animal) {
 			// 	egret.Tween.removeTweens(this.animal);
 			// }
-			// this.setAction(ActionType.Die);
+			this.setAction(ActionType.Die);
 			
 			// if (EntityManager.Instance.lastSelect == this.uid) {
 			// 	EntityManager.Instance.selectEntity();

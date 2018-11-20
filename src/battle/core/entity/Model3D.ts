@@ -34,14 +34,15 @@ import { ConfigManager } from "../../../config/ConfigManager";
 		// _attachPoint:Laya.AttachPoint;
 		public createSkin(id:string):void{
 			if(!this.meshSprite3D){
-				ResDisposer.Instance.addRefByObjId(id);
+				// ResDisposer.Instance.addRefByObjId(id);
 				this._skinConfig = ConfigManager.Instance.obj["model_" + id];
 				this._skinModel = id;
 				let sp:Laya.Sprite3D = Laya.loader.getRes(this._skinConfig.url);
 				if(sp){
-					this.createMesh(id);
+					this.createMesh(id,this._skinConfig.url);
 				}else{
-					Laya.Sprite3D.load(this._skinConfig.url,Laya.Handler.create(this,this.createMesh,[id]));
+					ResDisposer.Instance.addToLoading(this._skinConfig.url);
+					Laya.Sprite3D.load(this._skinConfig.url,Laya.Handler.create(this,this.createMesh,[id,this._skinConfig.url]));
 				}
 			}
 		}
@@ -50,41 +51,77 @@ import { ConfigManager } from "../../../config/ConfigManager";
 			if(this._selected != value || compulsory){
 				this._selected = value;
 				if(this.meshSprite3D){
-					for(let ms of this.meshSprite3D._children){
-						let mat = (ms as Laya.SkinnedMeshSprite3D).skinnedMeshRenderer.sharedMaterial as CustomMaterial;
-						if(value){
-							mat.marginalColor = new Laya.Vector3(0.0, 0.3, 1.0);
-						}else{
-							mat.marginalColor = null;
-						}
+					if(value){
+						this.setMeshMatValue(this.meshSprite3D,"marginalColor",new Laya.Vector3(0.0, 0.3, 1.0));
+					}else{
+						this.setMeshMatValue(this.meshSprite3D,"marginalColor",null);
+					}
+					
+				}
+			}
+		}
+
+		private readMesh(sp):void{
+			for(let ms of sp._children){
+				if(ms.skinnedMeshRenderer){
+					let mat = (ms as Laya.SkinnedMeshSprite3D).skinnedMeshRenderer.sharedMaterial as CustomMaterial;
+					if(mat){
+						(ms as Laya.SkinnedMeshSprite3D).skinnedMeshRenderer.sharedMaterial = mat.clone();
+					}
+				}else if(ms._children){
+					for(let cms of ms._children){
+						this.readMesh(cms);
 					}
 				}
 			}
 		}
 
-		public createMesh(id):void{
+		private destroyMesh(sp):void{
+			for(let ms of sp._children){
+				if(ms.skinnedMeshRenderer){
+					let mat = (ms as Laya.SkinnedMeshSprite3D).skinnedMeshRenderer.sharedMaterial;
+					if(mat)
+						mat.destroy();
+				}else if(ms._children){
+					for(let cms of ms._children){
+						this.destroyMesh(cms);
+					}
+				}
+			}
+		}
+
+		private setMeshMatValue(sp,key,value):void{
+			for(let ms of sp._children){
+				if(ms.skinnedMeshRenderer){
+					let mat = (ms as Laya.SkinnedMeshSprite3D).skinnedMeshRenderer.sharedMaterial as CustomMaterial;
+					if(mat){
+						if(value){
+							mat[key] = new Laya.Vector3(0.0, 0.3, 1.0);
+						}else{
+							mat[key] = null;
+						}
+					}
+				}else if(ms._children){
+					for(let cms of ms._children){
+						this.setMeshMatValue(cms,key,value);
+					}
+				}
+			}
+		}
+
+		public createMesh(id,url):void{
 			if(this._skinModel == id){
-				let sp:Laya.Sprite3D = Laya.loader.getRes(this._skinConfig.url);
+				let sp:Laya.Sprite3D = Laya.loader.getRes(url);
+				ResDisposer.Instance.removeLoad(url);
+				ResDisposer.Instance.addReferenceRes(url);
 				this.meshSprite3D = Laya.Sprite3D.instantiate(sp.getChildAt(0) as Laya.Sprite3D );
+				this.meshSprite3D.transform.position = new Laya.Vector3(0,0,0);
 				this.addChild(this.meshSprite3D);
 				// this.meshSprite3D.name = 
 				// this.meshSprite3D.transform.scale = new Laya.Vector3(10,10,10);
-				for(let ms of this.meshSprite3D._children){
-					// ms.skinnedMeshRenderer.castShadow = true;
-					//添加碰撞器组件并获取
-					// var meshCollider:Laya.PhysicsCollider = ms.addComponent(Laya.PhysicsCollider)as Laya.PhysicsCollider;
-					let mat = (ms as Laya.SkinnedMeshSprite3D).skinnedMeshRenderer.sharedMaterial as CustomMaterial;
-					(ms as Laya.SkinnedMeshSprite3D).skinnedMeshRenderer.sharedMaterial = mat.clone();
-					// mat.marginalColor = new Laya.Vector3(0.0, 0.3, 1.0);
-					// var boxShape:Laya.MeshColliderShape = new Laya.MeshColliderShape();
-					// //获取模型的Mesh网格
-					// boxShape.mesh = ms.meshFilter.sharedMesh as Laya.Mesh;
-					//把Mesh网格添加到碰撞器
-					// meshCollider.colliderShape = boxShape;
-					// var capsuleShape:Laya.CapsuleColliderShape = new Laya.CapsuleColliderShape(0.5,2);
-					// capsuleShape.localOffset = new Laya.Vector3(0,0.6,0);
-					// meshCollider.colliderShape = capsuleShape;
-				}
+				// for(let ms of this.meshSprite3D._children){
+					this.readMesh(this.meshSprite3D);
+				// }
 				if(this._selected)
 					this.setSelected(this._selected,true);
 				// this.meshSprite3D.name = "model";
@@ -98,7 +135,7 @@ import { ConfigManager } from "../../../config/ConfigManager";
 				}
 				//FXDummy_MainWeapon
 			}else{
-				ResDisposer.Instance.checkRef(id);
+				ResDisposer.Instance.removeReferenceRes(url);
 			}
 		}
 
@@ -116,8 +153,8 @@ import { ConfigManager } from "../../../config/ConfigManager";
 
 		public updateSkin(model:string):void{
 			if(this._skinModel != model){
-				this._skinModel = model;
 				this.removeSkin();
+				this._skinModel = model;
 				if(model){
 					this.createSkin(model);
 				}
@@ -126,16 +163,17 @@ import { ConfigManager } from "../../../config/ConfigManager";
 
 		public removeSkin() {
 			if(this.meshSprite3D){
-				for(let ms of this.meshSprite3D._children){
-					// ms.skinnedMeshRenderer.castShadow = true;
-					//添加碰撞器组件并获取
-					// var meshCollider:Laya.PhysicsCollider = ms.addComponent(Laya.PhysicsCollider)as Laya.PhysicsCollider;
-					let mat = (ms as Laya.SkinnedMeshSprite3D).skinnedMeshRenderer.sharedMaterial as CustomMaterial;
-					mat.destroy();
-				}
+				// for(let ms of this.meshSprite3D._children){
+				// 	let mat = (ms as Laya.SkinnedMeshSprite3D).skinnedMeshRenderer.sharedMaterial as CustomMaterial;
+				// 	mat.destroy();
+				// }
+				this.destroyMesh(this.meshSprite3D);
 				this.meshSprite3D.destroy(true);
 				this.meshSprite3D = null;
-				ResDisposer.Instance.removeRefByObjId(this._skinModel);
+				if(!ResDisposer.Instance.removeLoad(this._skinConfig.url)){
+					ResDisposer.Instance.removeReferenceRes(this._skinConfig.url);
+				}
+				// ResDisposer.Instance.removeRefByObjId(this._skinModel);
 			}
 		}
 
@@ -185,22 +223,27 @@ import { ConfigManager } from "../../../config/ConfigManager";
 				// let ani = this._animationFrames[action];
 				switch(action){
 					case "idle":
-					
+					case "run":
 						this.animator.play("idle");
 						// this.playAniByUrl(ani[0],ani[1],null,Number.MAX_VALUE);
 					break;
-					case "run":
 					case "die":
+					{
+						this.animator.play("die",0,0);
+					}
+					break;
 					case "dieEnd":
-						this.animator.play("run");
+						this.animator.play("die");
 					break;
 					case "attack":
 					
 					this.animator.play("attack",0,0);
 					break;
-					case "skill2":
-						this.animator.play("attack");
-						
+					case "skill":
+						this.animator.play("skill",0,0);
+					break;
+					case "damage":
+						this.animator.play("damage",0,0);
 					break;
 					default:
 						// this.playAniByUrl(ani[0],ani[1],this.onSkinAniChange,0);
@@ -209,11 +252,11 @@ import { ConfigManager } from "../../../config/ConfigManager";
 			}
 		}
 
-		private playCompleteHandler(e: Laya.Event): void {
-			if(this._curAction == "skill1" || this._curAction == "skill2"){
-				this.playAni("idle",true);
-			}
-		}
+		// private playCompleteHandler(e: Laya.Event): void {
+		// 	if(this._curAction == "skill1" || this._curAction == "skill2"){
+		// 		this.playAni("idle",true);
+		// 	}
+		// }
 
 		// public playAniByUrl(from, to,changeHandler,count:number = 0) {
         //     for (var t = 0, i = this._animations.length; i > t; t++) {

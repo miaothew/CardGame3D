@@ -1,16 +1,18 @@
 {
-	"map_1":{
-		"id":1,
-		"url":"res/battle/test1.ls",
-		"allRes":[
-			"res/battle/terrain/terrain_Terrain.lmat",
-			"res/battle/terrain/splatAlphaTexture.png",
-			"res/battle/Assets/TinyTerrain/Standard Assets/Terrain Textures/Grass&Rock.jpg",
-			"res/battle/terrain/terrain_Terrain.lm"
-		]	
-	},
 	"map_2":{
 		"id":2,
+		"url":"res3D/terrain/map001.ls",
+		"allRes":[
+			"res3D/terrain/Library/unity default resources-Cube.lm",
+			"res3D/terrain/Assets/AceAsset/CommonResources/Terrains/Materials/Moss 01.lmat",
+			"res3D/terrain/Assets/AceAsset/CommonResources/Terrains/forest2.jpg",
+			"res3D/terrain/Assets/AceAsset/CommonResources/bg/Wood Fence/Materials/utd_woodenfence.lmat",
+			"res3D/terrain/Assets/AceAsset/CommonResources/bg/Wood Fence/Meshes/Woodfence-woodenfence.lm",
+			"res3D/terrain/Assets/AceAsset/CommonResources/bg/Wood Fence/Textures/utd_woodenfence.png"
+		]	
+	},
+	"map_1":{
+		"id":1,
 		"url":"res/battle/test1.ls",
 		"allRes":[
 			"res/battle/terrain/terrain_Terrain.lmat",

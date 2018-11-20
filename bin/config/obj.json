@@ -29,12 +29,68 @@
 	},
 	"effect_1":{
 		"id":1,
-		"url":"res/battle/effecthurt.lh",
+		"url":"res3D/effect/effecthurt.lh",
 		"allRes":[
-			"res/battle/Assets/100 Best Effect Pack/Texture&Material/Smoke Texture&Mateiral/Smoke(Alpha Blended).lmat",
-			"res/battle/Assets/100 Best Effect Pack/Texture&Material/Smoke Texture&Mateiral/Smoke6(Alpha Blended).lmat",
-			"res/battle/Assets/100 Best Effect Pack/Texture&Material/Smoke Texture&Mateiral/Smoke.png",
-			"res/battle/Assets/100 Best Effect Pack/Texture&Material/Smoke Texture&Mateiral/Smoke6.png"
+			"res3D/effect/Assets/100 Best Effect Pack/Texture&Material/Smoke Texture&Mateiral/Smoke(Alpha Blended).lmat",
+			"res3D/effect/Assets/100 Best Effect Pack/Texture&Material/Smoke Texture&Mateiral/Smoke6(Alpha Blended).lmat",
+			"res3D/effect/Assets/100 Best Effect Pack/Texture&Material/Smoke Texture&Mateiral/Smoke.png",
+			"res3D/effect/Assets/100 Best Effect Pack/Texture&Material/Smoke Texture&Mateiral/Smoke6.png"
+		]
+	},"model_3":{
+		"id":3,
+		"url":"res3D/monster/001.lh",
+		"allRes":[
+			"res3D/monster/Assets/AceAsset/Monsters/Werewolf/Models/MonsterWerewolf-MonsterWerewolf-MonsterWerewolfAvatar.lav",
+			"res3D/monster/Assets/AceAsset/Monsters/Werewolf/Animations/Generic/MonsterW@Die-Die.lani",
+			"res3D/monster/Assets/AceAsset/Monsters/Werewolf/Animations/Generic/MonsterW@Idle01-Idle01.lani",
+			"res3D/monster/Assets/AceAsset/Monsters/Werewolf/Animations/Generic/MonsterW@Attack01-Attack01.lani",
+			"res3D/monster/Assets/AceAsset/Monsters/Werewolf/Animations/Generic/MonsterW@Damage01-Damage01.lani",
+			"res3D/monster/Assets/AceAsset/Monsters/Werewolf/Animations/Generic/MonsterW@Howl-Howl.lani",
+			"res3D/monster/Assets/AceAsset/Monsters/Werewolf/Models/Materials/MonsterWerewolf.lmat",
+			"res3D/monster/Assets/AceAsset/Monsters/Werewolf/Models/MonsterWerewolf.jpg",
+			"res3D/monster/Assets/AceAsset/Monsters/Werewolf/Models/MonsterWerewolf-monster_werewolf.lm"
+		]
+	},"model_4":{
+		"id":4,
+		"url":"res3D/monster/002.lh",
+		"allRes":[
+			"Assets/AceAsset/Monsters/Skeleton/Models/MonsterSkeleton-MonsterSkeleton-MonsterSkeletonAvatar.lav",
+			"res3D/monster/Assets/AceAsset/Monsters/Skeleton/Animations/Humanoid/MonsterS@Die-Die.lani",
+			"res3D/monster/Assets/AceAsset/Monsters/Skeleton/Animations/Humanoid/MonsterS@Damage01-Damage01.lani",
+			"res3D/monster/Assets/AceAsset/Monsters/Skeleton/Animations/Humanoid/MonsterS@Skill-Skill.lani",
+			"res3D/monster/Assets/AceAsset/Monsters/Skeleton/Animations/Humanoid/MonsterS@Attack01-Attack01.lani",
+			"res3D/monster/Assets/AceAsset/Monsters/Skeleton/Animations/Humanoid/MonsterS@Idle01-Idle01.lani",
+			"res3D/monster/Assets/AceAsset/Monsters/Skeleton/Models/Materials/MonsterSkeleton.lmat",
+			"res3D/monster/Assets/AceAsset/Monsters/Skeleton/Models/MonsterSkeleton.jpg",
+			"res3D/monster/Assets/AceAsset/Monsters/Skeleton/Models/MonsterSkeleton-monster_skeleton.lm"
+		]
+	},"model_5":{
+		"id":5,
+		"url":"res3D/monster/003.lh",
+		"allRes":[
+			"res3D/monster/Assets/AceAsset/Monsters/Skeleton/Models/MonsterSkeleton-MonsterFatZombie-MonsterSkeletonAvatar.lav",
+			"res3D/monster/Assets/AceAsset/Monsters/FatZombie/Animations/Humanoid/MonsterFZ@Damage01-Damage01.lani",
+			"res3D/monster/Assets/AceAsset/Monsters/FatZombie/Animations/Humanoid/MonsterFZ@Skill-Skill.lani",
+			"res3D/monster/Assets/AceAsset/Monsters/FatZombie/Animations/Humanoid/MonsterFZ@Attack01-Attack01.lani",
+			"res3D/monster/Assets/AceAsset/Monsters/FatZombie/Animations/Humanoid/MonsterFZ@Idle01-Idle01.lani",
+			"res3D/monster/Assets/AceAsset/Monsters/FatZombie/Animations/Humanoid/MonsterFZ@Die-Die.lani",
+			"res3D/monster/Assets/AceAsset/Monsters/FatZombie/Models/Materials/MonsterFatZombie.lmat",
+			"res3D/monster/Assets/AceAsset/Monsters/FatZombie/Models/MonsterFatZombie.jpg",
+			"res3D/monster/Assets/AceAsset/Monsters/FatZombie/Models/MonsterFatZombie-Zombie1.lm"
+		]
+	},"model_6":{
+		"id":6,
+		"url":"res3D/monster/004.lh",
+		"allRes":[
+			"res3D/monster/Assets/AceAsset/Monsters/Skeleton/Models/MonsterSkeleton-MonsterAxeZombie-MonsterSkeletonAvatar.lav",
+			"res3D/monster/Assets/AceAsset/Monsters/AxeZombie/Animations/Humanoid/MonsterAZ@Die-Die.lani",
+			"res3D/monster/Assets/AceAsset/Monsters/AxeZombie/Animations/Humanoid/MonsterAZ@AttackL-AttackL.lani",
+			"res3D/monster/Assets/AceAsset/Monsters/AxeZombie/Animations/Humanoid/MonsterAZ@Skill-Skill.lani",
+			"res3D/monster/Assets/AceAsset/Monsters/AxeZombie/Animations/Humanoid/MonsterAZ@Damage01-Damage01.lani",
+			"res3D/monster/Assets/AceAsset/Monsters/AxeZombie/Animations/Humanoid/MonsterAZ@Idle01-Idle01.lani",
+			"res3D/monster/Assets/AceAsset/Monsters/AxeZombie/Models/Materials/zombi.lmat",
+			"res3D/monster/Assets/AceAsset/Monsters/AxeZombie/Models/MonsterAxeZombi.png",
+			"res3D/monster/Assets/AceAsset/Monsters/AxeZombie/Models/MonsterAxeZombie-zombi001.lm"
 		]
 	}
 }

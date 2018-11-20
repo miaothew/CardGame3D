@@ -70,6 +70,11 @@ import { SkillManager } from "../../SkillManager";
 		}
 
 		public die(entity: AnimalEntity): void {
+			entity.deadTime = GameTime.Instance.totalGameTime + 2000;
+			entity.die();
+		}
+
+		public dieEnd(entity: AnimalEntity):void{
 			entity.dieEnd(true);
 			BattleManager.Instance.checkEnemyState();
 		}

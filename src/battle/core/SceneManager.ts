@@ -128,9 +128,8 @@ export class SceneManager {
 	}
 
 	public destroyScene():void{
-		if(CameraManager.Instance.mainCamera){
-			CameraManager.Instance.mainCamera.destroy(true);
-			CameraManager.Instance.mainCamera = null;
+		if(CameraManager.Instance.mainCamera && CameraManager.Instance.mainCamera.parent){
+			CameraManager.Instance.mainCamera.parent.removeChild(CameraManager.Instance.mainCamera);
 		}	
 		if(this.directionLight){
 			this.directionLight.destroy(true);
@@ -188,23 +187,30 @@ export class SceneManager {
 	}
 	private initCamera(): void {
 		//添加照相机channel
-		var camera: Laya.Camera = (this.scene.addChild(new Laya.Camera(0, 0.3, 1000))) as Laya.Camera;
+		var camera: Laya.Camera = CameraManager.Instance.mainCamera;
+		if(!camera){
+			camera = (this.scene.addChild(new Laya.Camera(0, 0.3, 1000))) as Laya.Camera;
+			CameraManager.Instance.mainCamera = camera;
+			camera.fieldOfView = 20;
+			camera.clearColor = new Laya.Vector4(0.1921569,0.3019608,0.4745098,0);
+			camera.clearFlag = Laya.BaseCamera.CLEARFLAG_SKY;
+			Laya.BaseMaterial.load("res/battle/skybox/skyBox.lmat", Laya.Handler.create(this, this.loadMaterial));
+		} else{
+			this.scene.addChild(camera);
+		}
+		
 		// camera.transform.translate(new Laya.Vector3(-50.51006, 5.763073, 24.30456));
 		camera.transform.position = new Laya.Vector3(-1.684368,			5.801986,			10.0834);
 		// camera.transform.rotate(new Laya.Vector3(-30, 0, 0), true, false);
 		// camera.transform.rotation = new Laya.Quaternion(-0.2575304, -0.6578727, -0.2569133, 0.6594522);
 		camera.transform.rotation = new Laya.Quaternion(	-0.2077771,			-0.09490746,			-0.02025976,			0.9733503);
-		camera.fieldOfView = 20;
-		camera.clearColor = new Laya.Vector4(0.1921569,0.3019608,0.4745098,0);
-		// camera.clearFlag = Laya.BaseCamera.CLEARFLAG_SKY;
-		// var skyBox = new Laya.SkyBox();
-		// camera.sky = skyBox;
-		// skyBox.textureCube = Laya.TextureCube.load("res/fbx/LayaScene_testLaya/Assets/TinyTerrain/Standard Assets/Skyboxes/Skybox.ltc");
-		CameraManager.Instance.mainCamera = camera;
-
-		// camera.addComponent();
+		
 	}
 
+
+	loadMaterial(mat){
+        CameraManager.Instance.mainCamera.skyboxMaterial = mat;
+    }
 	
 
 }

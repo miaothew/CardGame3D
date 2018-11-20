@@ -160,7 +160,7 @@ export class BattleManager {
 			player.changeFSMState(EntityFreeFsm.Instance);
 			player._entityAI = AIManager.Instance.getAI(AIType.MONSTER);
 			player.a_weaponModel = 20001;
-			player.a_clothModel = 2;
+			player.a_clothModel = 3 + Math.floor(Math.random() * 4);
 			player.a_maxHp = player.a_truehp = player.a_delayhp = 12;
 			player.createComponents();
 			player.addToView();

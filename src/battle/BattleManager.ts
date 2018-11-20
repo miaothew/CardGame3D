@@ -112,8 +112,8 @@ export class BattleManager {
 		CameraManager.Instance.mainCamera.transform.position = new Laya.Vector3(player.x, player.y + 18, player.z - 12);
 		CameraManager.Instance.mainCamera.transform.lookAt(player.model3D.transform.position, GameUtils.Vector3UpTemp);
 		CameraManager.Instance.mainCamera.transform.translate(new Laya.Vector3(3,0,0));
-		player._entityInfo.updatePos(player.model3D.transform.position);
-
+        player._entityInfo.updatePos(player.model3D.transform.position);
+        
     }
     
     public startGame():void{
@@ -160,7 +160,7 @@ export class BattleManager {
 			player.changeFSMState(EntityFreeFsm.Instance);
 			player._entityAI = AIManager.Instance.getAI(AIType.MONSTER);
 			player.a_weaponModel = 20001;
-			player.a_clothModel = 2;
+			player.a_clothModel = 3 + Math.floor(Math.random() * 4);
 			player.a_maxHp = player.a_truehp = player.a_delayhp = 12;
 			player.createComponents();
 			player.addToView();

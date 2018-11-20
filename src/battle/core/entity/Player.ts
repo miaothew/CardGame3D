@@ -1,5 +1,5 @@
 import { AnimalEntity } from "./AnimalEntity";
-import { EntityType, E_MODEL_Id } from "../GameDefine";
+import { EntityType, E_MODEL_Id, ActionType } from "../GameDefine";
 
 	export class Player extends AnimalEntity {
 		public constructor(id: number, type: EntityType) {
@@ -54,6 +54,36 @@ import { EntityType, E_MODEL_Id } from "../GameDefine";
 			// 		this._entityInfo.hideText(EntityInfoType.BLOODVALUE);
 			// 	}
 			// 	this._entityInfo.setTitle(playerObject.titleId, true);
+			// }
+		}
+
+		public setAction(action: ActionType, direction: number = -1, compulsory: Boolean = false) {
+			// if (this.this && this.bianshenModel && action != ActionType.Attack) return;
+			this.action = action;
+			if (direction != -1) {
+				this.dir = direction;
+			}
+			if(this.model3D){
+				switch(action){
+					case ActionType.Run:
+					case ActionType.Walk:
+						this.model3D.playAni("run",compulsory);
+					break;
+					case ActionType.Attack:
+						this.model3D.playAni("attack",compulsory);
+					break;
+					case ActionType.Attack2:
+						this.model3D.playAni("skill2",compulsory);
+					break;
+					default:
+						this.model3D.playAni("idle",compulsory);
+					break;
+				}
+			}
+			
+			// if (this.animal) {
+			// 	this.animal.pause = false;
+			// 	this.animal.setAction(action, direction, compulsory);
 			// }
 		}
 

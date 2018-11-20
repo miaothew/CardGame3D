@@ -37,6 +37,7 @@ export const enum ActionType {
 	Run,
 	Attack,
 	Attack2,
+	HURT,
 	Die = 10,
 }
 

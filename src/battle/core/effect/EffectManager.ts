@@ -8,6 +8,8 @@ import { GameDefine } from "../GameDefine";
 import { GameUtils, IDProvider, IUpdateable } from "../util/GameUtils";
 import { SceneManager } from "../SceneManager";
 import { Entity } from "../entity/Entity";
+import { ResDisposer } from "../util/ResDisposer";
+import { ConfigManager } from "../../../config/ConfigManager";
 export class EffectManager {
 
     public static Instance: EffectManager;
@@ -49,7 +51,7 @@ export class EffectManager {
 
     public addEffect(id: number, x: number, y: number, z: number, startTime: number, rotation: Laya.Quaternion = null, endTime: number = 0): void {
         let effect: NormalEffect = this.createEffect(E_Effect_Type.NORMAL);
-        effect.init(id, SceneManager.Instance.scene, endTime, startTime);
+        effect.init(id, SceneManager.Instance.scene, endTime + GameTime.Instance.totalGameTime, startTime);
         effect.setPosition(x, y, z);
         if (rotation) {
             effect.rotation = rotation;
@@ -63,8 +65,13 @@ export class EffectManager {
 
     public destoryAllEffect(): void {
         for (let key in this._effectDic) {
-            this.readyToDie(this._effectDic[key]);
+            this._effectDic[key].die();
         }
+        for (let deadEffect of this._readyToDispose) {
+            delete this._effectDic[deadEffect.id];
+            deadEffect.dispose();
+        }
+        this._readyToDispose.length = 0;
     }
 
     public updateTime(gameTime: GameTime): void {
@@ -84,35 +91,7 @@ export class EffectManager {
         this._readyToDispose.push(effect);
     }
 }
-export class EffectResConfig {
-    constructor() {
 
-    }
-
-    //技能特效ID对应表
-    static GL_MagicEffectIdConfig = {
-        //战士1-5技能
-        1: "res/res3D/par3D/zs_skill1.lh",
-        2: "res/res3D/par3D/zs_skill2.lh",
-        3: "res/res3D/par3D/zs_skill3.lh",
-        4: "res/res3D/par3D/zs_skill4.lh",
-        5: "res/res3D/par3D/zs_skill5.lh",
-        //法师1-5技能
-        6: "res/res3D/par3D/fs_skill1.lh",
-        7: "res/res3D/par3D/fs_skill2.lh",
-        8: "res/res3D/par3D/fs_skill3.lh",
-        9: "res/res3D/par3D/fs_skill4.lh",
-        10: "res/res3D/par3D/fs_skill5.lh",
-        //道士1-5技能
-        11: "res/res3D/par3D/gs_skill1.lh",
-        12: "res/res3D/par3D/gs_skill2.lh",
-        13: "res/res3D/par3D/gs_skill3.lh",
-        14: "res/res3D/par3D/gs_skill4.lh",
-        15: "res/res3D/par3D/gs_skill5.lh"
-
-    };
-
-}
 
 export enum E_Effect_Type {
     NORMAL,
@@ -146,6 +125,8 @@ export class NormalEffect implements IUpdateable {
     protected offsetX: number;
     protected offsetY: number;
     protected attention: boolean;
+    public static Effect_Name = "effect_";
+    private _skinConfig;
 
     public init(eid: number, container, loop: number = -1, startTime: number = 0, dir?: number, sound?: number, frame?: number, scale?: number, offsetX?: number, offsetY?: number, attention?: boolean): void {
         this.eid = eid;
@@ -203,37 +184,47 @@ export class NormalEffect implements IUpdateable {
     }
 
     public initDisplay(): void {
-        // let sp = Laya.Sprite3D.load(EffectResConfig.GL_MagicEffectIdConfig[this.eid]);
-        // if (sp && sp.loaded) {
-        //     this.animation = Laya.Sprite3D.instantiate(sp);
-        //     this._container.addChild(this.animation);
-        //     this.initAnimation();
-        // } else {
-        //     this.animation = sp;
-        //     this.animation.once(Laya.Event.HIERARCHY_LOADED, this, this.loadedHandler);
-        // }
+        // ResDisposer.Instance.addRefByObjId(this.eid,NormalEffect.Effect_Name);
+        this._skinConfig = ConfigManager.Instance.obj[NormalEffect.Effect_Name + this.eid];
+        
+        let sp = Laya.loader.getRes(this._skinConfig.url);
+        if(sp){
+            this.loadedHandler(this.eid,this._skinConfig.url,sp);
+        }else{
+            ResDisposer.Instance.addToLoading(this._skinConfig.url);
+            Laya.Sprite3D.load(this._skinConfig.url,Laya.Handler.create(this,this.loadedHandler,[this.eid,this._skinConfig.url]));
+        }
     }
 
     protected initAnimation(): void {
-        if (this._rotation) {
-            GameUtils.setQuaternion(this.animation, this._rotation);
-        }
-        this.animation.transform.scale = new Laya.Vector3(3, 3, 3);
+        // if (this._rotation) {
+        //     GameUtils.setQuaternion(this.animation, this._rotation);
+        // }
+        // this.animation.transform.scale = new Laya.Vector3(3, 3, 3);
         this.setPosition(this._x, this._y, this._z);
     }
 
-    private loadedHandler(e: Laya.Event): void {
-        this.animation = Laya.Sprite3D.instantiate(this.animation);
-        this._container.addChild(this.animation);
-        this.initAnimation();
+    private loadedHandler(eid:number,url:string,res:Laya.Sprite3D): void {
+        if(eid == this.eid){
+            ResDisposer.Instance.removeLoad(url);
+            ResDisposer.Instance.addReferenceRes(url);
+            this.animation = Laya.Sprite3D.instantiate(res.getChildAt(0) as Laya.Sprite3D);
+            this._container.addChild(this.animation);
+            this.initAnimation();
+        }else{
+            ResDisposer.Instance.removeReferenceRes(url);
+            // ResDisposer.Instance.checkRef(eid,NormalEffect.Effect_Name);
+        }
     }
 
     public die(): void {
         this.enabled = false;
         if (this.animation) {
+            this.animation.destroy(true);
             // this.animation.off(Laya.Event.HIERARCHY_LOADED, this, this.loadedHandler, true);
             this.animation = null;
         }
+        
         //放入销毁列表，场景中的物体销毁都放到下一帧
         EffectManager.Instance.readyToDie(this);
     }
@@ -305,6 +296,13 @@ export class NormalEffect implements IUpdateable {
     public dispose(): void {
         if (this.id == undefined) {
             return;
+        }
+        if(this._skinConfig){
+            if(!ResDisposer.Instance.removeLoad(this._skinConfig.url)){
+                ResDisposer.Instance.removeReferenceRes(this._skinConfig.url);
+            }
+            // ResDisposer.Instance.removeRefByObjId(this.eid,NormalEffect.Effect_Name);
+            this._skinConfig = null;
         }
         this.id = undefined;
         this.enabled = false;

@@ -36,9 +36,9 @@ import { AnimalEntity } from "../entity/AnimalEntity";
 					return;
 				}
 			}
-			// if ((entity as AnimalEntity).deadTime > 0 && (entity as AnimalEntity).deadTime < gameTime.totalGameTime) {
-			// 	entity._entityAI.dieEnd(entity);
-			// }
+			if ((entity as AnimalEntity).deadTime > 0 && (entity as AnimalEntity).deadTime < gameTime.totalGameTime) {
+				entity._entityAI.dieEnd(entity);
+			}
 
 			// let animalEntity:AnimalEntity = entity as AnimalEntity;
 			// // if(animalEntity.deadWaitTime < gameTime.totalGameTime){

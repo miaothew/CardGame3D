@@ -175,7 +175,7 @@ export class SceneManager {
 
 	private initDirectionLight(): void {
 		this.directionLight = this.scene.addChild(new Laya.DirectionLight()) as Laya.DirectionLight;
-		this.directionLight.color = new Laya.Vector3(1.5, 1.5, 1.5);
+		this.directionLight.color = new Laya.Vector3(1.0, 1.0, 1.0);
 		//this.directionLight.transform.translate(new Laya.Vector3(-2.165527, 2.193848, -3.087891));
 		// this.directionLight.direction = new Laya.Vector3(0, -1.0, -1.0);
 		this.directionLight.transform.rotation = new Laya.Quaternion(0.2205614, 0.5054134, 0.8231464, -0.1354251);

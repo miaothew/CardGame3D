@@ -36,9 +36,9 @@ export const enum ActionType {
 	Walk,
 	Run,
 	Attack,
-	Attack2,
+	Skill,
 	HURT,
-	Die = 10,
+	Die,
 }
 
 export class DirectionType {

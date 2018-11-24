@@ -240,7 +240,7 @@ import { SkillManager } from "../SkillManager";
 
 		
 		private playCompleteHandler():void{
-			if(this.action == ActionType.Attack || this.action == ActionType.Attack2 || this.action == ActionType.HURT){
+			if(this.action == ActionType.Attack || this.action == ActionType.Skill || this.action == ActionType.HURT){
 				this.setAction(ActionType.Idle);
 			}
 		}
@@ -327,27 +327,7 @@ import { SkillManager } from "../SkillManager";
 				this.dir = direction;
 			}
 			if(this.model3D){
-				switch(action){
-					case ActionType.Run:
-					case ActionType.Walk:
-						this.model3D.playAni("run",compulsory);
-					break;
-					case ActionType.Attack:
-						this.model3D.playAni("attack",compulsory);
-					break;
-					case ActionType.Attack2:
-						this.model3D.playAni("skill2",compulsory);
-					break;
-					case ActionType.HURT:
-						this.model3D.playAni("damage",compulsory);
-					break;
-					case ActionType.Die:
-						this.model3D.playAni("die",compulsory);
-					break;
-					default:
-						this.model3D.playAni("idle",compulsory);
-					break;
-				}
+				this.model3D.playAni(action,compulsory);
 			}
 			
 			// if (this.animal) {

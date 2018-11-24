@@ -368,6 +368,7 @@ export class CustomShader {
             "	vec4 mainColor=u_DiffuseColor;\n" +
             "	#ifdef DIFFUSEMAP\n" +
             "		vec4 difTexColor=texture2D(u_DiffuseTexture, v_Texcoord0);\n" +
+            "       difTexColor.rgb=difTexColor.rgb + difTexColor.rgb;\n" +//翻倍测试
             "		mainColor=mainColor*difTexColor;\n" +
             "	#endif \n" +
             "	#if defined(COLOR)&&defined(ENABLEVERTEXCOLOR)\n" +

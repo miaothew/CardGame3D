@@ -160,12 +160,13 @@ export class BattleManager {
 			player.changeFSMState(EntityFreeFsm.Instance);
 			player._entityAI = AIManager.Instance.getAI(AIType.MONSTER);
 			player.a_weaponModel = 20001;
-			player.a_clothModel = 3 + Math.floor(Math.random() * 4);
+			player.a_clothModel = 101 + Math.floor(Math.random() * 19);
 			player.a_maxHp = player.a_truehp = player.a_delayhp = 12;
 			player.createComponents();
 			player.addToView();
 			player.checkInfoInview();
-			player.model3D.transform.rotate(new Laya.Vector3(0,90,0));
+            player.model3D.transform.rotate(new Laya.Vector3(0,90,0));
+            player.model3D.transform.scale = new Laya.Vector3(0.7,0.7,0.7);
 			player._entityInfo.updatePos(player.model3D.transform.position);
 		}
 		

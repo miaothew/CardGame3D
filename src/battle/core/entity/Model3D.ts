@@ -2,6 +2,7 @@ import { SceneManager } from "../SceneManager";
 import { CustomMaterial } from "../marterial/CustomMaterial";
 import { ResDisposer } from "../util/ResDisposer";
 import { ConfigManager } from "../../../config/ConfigManager";
+import { ActionType } from "../GameDefine";
 
 /**
 * name 
@@ -66,7 +67,10 @@ import { ConfigManager } from "../../../config/ConfigManager";
 				if(ms.skinnedMeshRenderer){
 					let mat = (ms as Laya.SkinnedMeshSprite3D).skinnedMeshRenderer.sharedMaterial as CustomMaterial;
 					if(mat){
-						(ms as Laya.SkinnedMeshSprite3D).skinnedMeshRenderer.sharedMaterial = mat.clone();
+						let mat2 = (ms as Laya.SkinnedMeshSprite3D).skinnedMeshRenderer.sharedMaterial = mat.clone() as CustomMaterial;
+						if(this._skinConfig.renderMode == 1){
+							mat2.renderMode = Laya.BlinnPhongMaterial.RENDERMODE_CUTOUT;
+						}
 					}
 				}else if(ms._children){
 					for(let cms of ms._children){
@@ -127,7 +131,8 @@ import { ConfigManager } from "../../../config/ConfigManager";
 				// this.meshSprite3D.name = "model";
 				// this.animator = this.meshSprite3D.getComponentByType(Laya.Animator) as Laya.Animator;
 				this.animator = this.meshSprite3D.getComponent(Laya.Animator) as Laya.Animator;
-				this.animator.play("idle");
+				this.playAni(ActionType.Idle,true);
+				// this.animator.play("idle");
 				
 				// this.animator.on(Laya.Event.STOPPED, this, this.playCompleteHandler);
 				if(this._weaponSprite && this._weaponSprite.loaded){
@@ -216,39 +221,24 @@ import { ConfigManager } from "../../../config/ConfigManager";
 		}
 
 		
-		public playAni(action:string,compulsory: Boolean = false):void{
+		public playAni(action:number,compulsory: Boolean = false):void{
 			if(compulsory || this._curAction != action){
 				this._curAction = action;
 				if(!this.animator)return;
 				// let ani = this._animationFrames[action];
-				switch(action){
-					case "idle":
-					case "run":
-						this.animator.play("idle");
-						// this.playAniByUrl(ani[0],ani[1],null,Number.MAX_VALUE);
-					break;
-					case "die":
-					{
-						this.animator.play("die",0,0);
+				if(this._skinConfig && this._skinConfig.actions[action]){
+					switch(action){
+						case ActionType.Idle:
+							this.animator.play(this._skinConfig.actions[action]);
+							// this.playAniByUrl(ani[0],ani[1],null,Number.MAX_VALUE);
+						break;
+						default:
+							this.animator.play(this._skinConfig.actions[action],0,0);
+							// this.playAniByUrl(ani[0],ani[1],this.onSkinAniChange,0);
+						break;
 					}
-					break;
-					case "dieEnd":
-						this.animator.play("die");
-					break;
-					case "attack":
-					
-					this.animator.play("attack",0,0);
-					break;
-					case "skill":
-						this.animator.play("skill",0,0);
-					break;
-					case "damage":
-						this.animator.play("damage",0,0);
-					break;
-					default:
-						// this.playAniByUrl(ani[0],ani[1],this.onSkinAniChange,0);
-					break;
 				}
+				
 			}
 		}
 

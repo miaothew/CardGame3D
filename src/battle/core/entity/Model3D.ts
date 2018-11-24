@@ -67,7 +67,10 @@ import { ActionType } from "../GameDefine";
 				if(ms.skinnedMeshRenderer){
 					let mat = (ms as Laya.SkinnedMeshSprite3D).skinnedMeshRenderer.sharedMaterial as CustomMaterial;
 					if(mat){
-						(ms as Laya.SkinnedMeshSprite3D).skinnedMeshRenderer.sharedMaterial = mat.clone();
+						let mat2 = (ms as Laya.SkinnedMeshSprite3D).skinnedMeshRenderer.sharedMaterial = mat.clone() as CustomMaterial;
+						if(this._skinConfig.renderMode == 1){
+							mat2.renderMode = Laya.BlinnPhongMaterial.RENDERMODE_CUTOUT;
+						}
 					}
 				}else if(ms._children){
 					for(let cms of ms._children){

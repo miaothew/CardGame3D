@@ -32,78 +32,97 @@
 	,"model_101":{
 		"id":101,
 		"url":"res3D/monster/101.lh",
+		"renderMode":"1",
 		"actions":{"1":"Idle","4":"Attack","5":"Skill","6":"Damage","7":"Die"}
 	},"model_102":{
 		"id":102,
 		"url":"res3D/monster/102.lh",
+		"renderMode":"1",
 		"actions":{"1":"Idle","4":"Attack","5":"Skill","6":"Damage","7":"Die"}
 	},"model_103":{
 		"id":103,
 		"url":"res3D/monster/103.lh",
+		"renderMode":"1",
 		"actions":{"1":"Idle","4":"Attack","5":"Skill","6":"Damage","7":"Die"}
 	},"model_104":{
 		"id":104,
 		"url":"res3D/monster/104.lh",
+		"renderMode":"1",
 		"actions":{"1":"Idle","4":"Attack","5":"Skill","6":"Damage","7":"Die"}
 	},"model_105":{
 		"id":105,
 		"url":"res3D/monster/105.lh",
+		"renderMode":"1",
 		"actions":{"1":"Idle","4":"Attack","5":"Skill","6":"Damage","7":"Die"}
 	},"model_106":{
 		"id":106,
 		"url":"res3D/monster/106.lh",
+		"renderMode":"1",
 		"actions":{"1":"Idle","4":"Attack","5":"Skill","6":"Damage","7":"Die"}
 	},"model_107":{
 		"id":107,
 		"url":"res3D/monster/107.lh",
+		"renderMode":"1",
 		"actions":{"1":"Idle","4":"Attack","5":"Skill","6":"Damage","7":"Die"}
 	},"model_108":{
 		"id":108,
 		"url":"res3D/monster/108.lh",
+		"renderMode":"1",
 		"actions":{"1":"Idle","4":"Attack","5":"Skill","6":"Damage","7":"Die"}
 	},"model_109":{
 		"id":109,
 		"url":"res3D/monster/109.lh",
+		"renderMode":"1",
 		"actions":{"1":"Idle","4":"Attack","5":"Skill","6":"Damage","7":"Die"}
 	},"model_110":{
 		"id":110,
 		"url":"res3D/monster/110.lh",
+		"renderMode":"1",
 		"actions":{"1":"Idle","4":"Attack","5":"Skill","6":"Damage","7":"Die"}
 	},"model_111":{
 		"id":111,
 		"url":"res3D/monster/111.lh",
+		"renderMode":"1",
 		"actions":{"1":"Idle","4":"Attack","5":"Skill","6":"Damage","7":"Die"}
 	},"model_112":{
 		"id":112,
 		"url":"res3D/monster/112.lh",
+		"renderMode":"1",
 		"actions":{"1":"Idle","4":"Attack","5":"Skill","6":"Damage","7":"Die"}
 	},"model_113":{
 		"id":113,
 		"url":"res3D/monster/113.lh",
+		"renderMode":"1",
 		"actions":{"1":"Idle","4":"Attack","5":"Skill","6":"Damage","7":"Die"}
 	},"model_114":{
 		"id":114,
 		"url":"res3D/monster/114.lh",
+		"renderMode":"1",
 		"actions":{"1":"Idle","4":"Attack","5":"Skill","6":"Damage","7":"Die"}
 	},"model_115":{
 		"id":115,
 		"url":"res3D/monster/115.lh",
+		"renderMode":"1",
 		"actions":{"1":"Idle","4":"Attack","5":"Skill","6":"Damage","7":"Die"}
 	},"model_116":{
 		"id":116,
 		"url":"res3D/monster/116.lh",
+		"renderMode":"1",
 		"actions":{"1":"Idle","4":"Attack","5":"Skill","6":"Damage","7":"Die"}
 	},"model_117":{
 		"id":117,
 		"url":"res3D/monster/117.lh",
+		"renderMode":"1",
 		"actions":{"1":"Idle","4":"Attack","5":"Skill","6":"Damage","7":"Die"}
 	},"model_118":{
 		"id":118,
 		"url":"res3D/monster/118.lh",
+		"renderMode":"1",
 		"actions":{"1":"Idle","4":"Attack","5":"Skill","6":"Damage","7":"Die"}
 	},"model_119":{
 		"id":119,
 		"url":"res3D/monster/119.lh",
+		"renderMode":"1",
 		"actions":{"1":"Idle","4":"Attack","5":"Skill","6":"Damage","7":"Die"}
 	}
 }

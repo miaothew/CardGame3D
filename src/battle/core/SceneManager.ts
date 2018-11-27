@@ -57,7 +57,7 @@ export class SceneManager {
 	
 
 	private mouseDownHandler(e:Laya.Event):void{
-		if(CameraManager.Instance.mainCamera){
+		if(CameraManager.Instance.mainCamera && this.scene){
 			//获取鼠标位置
 			this._mousePoint.elements[0] = Laya.MouseManager.instance.mouseX;
 			this._mousePoint.elements[1] = Laya.MouseManager.instance.mouseY;
@@ -85,7 +85,7 @@ export class SceneManager {
 	private _lastMouseEntity:AnimalEntity;
 
 	private mouseMoveHandler(e:Laya.Event):void{
-		if(CameraManager.Instance.mainCamera){
+		if(CameraManager.Instance.mainCamera && this.scene){
 			this._mousePoint.elements[0] = Laya.MouseManager.instance.mouseX;
 			this._mousePoint.elements[1] = Laya.MouseManager.instance.mouseY;
 			//产生射线
